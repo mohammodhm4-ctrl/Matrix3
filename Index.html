@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Hacker Matrix Screen</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:black;
+overflow:hidden;
+font-family:monospace;
+}
+
+
+canvas{
+position:absolute;
+top:0;
+left:0;
+}
+
+
+.container{
+
+position:absolute;
+top:40%;
+width:100%;
+text-align:center;
+color:#00ff00;
+
+}
+
+
+h1{
+
+font-size:50px;
+text-shadow:
+0 0 10px #00ff00,
+0 0 30px #00ff00;
+
+}
+
+
+.typing{
+
+font-size:22px;
+margin-top:20px;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<canvas id="matrix"></canvas>
+
+
+<div class="container">
+
+<h1>HACKER MODE</h1>
+
+<div class="typing" id="text"></div>
+
+</div>
+
+
+
+<script>
+
+
+let canvas=document.getElementById("matrix");
+
+let ctx=canvas.getContext("2d");
+
+
+canvas.width=window.innerWidth;
+
+canvas.height=window.innerHeight;
+
+
+
+let chars="01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%@";
+
+
+let font=18;
+
+
+let columns=canvas.width/font;
+
+
+let drops=[];
+
+
+for(let i=0;i<columns;i++){
+
+drops[i]=1;
+
+}
+
+
+
+function rain(){
+
+
+ctx.fillStyle="rgba(0,0,0,0.08)";
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+
+ctx.fillStyle="#00ff00";
+
+ctx.font=font+"px monospace";
+
+
+
+for(let i=0;i<drops.length;i++){
+
+
+let char=
+chars[Math.floor(Math.random()*chars.length)];
+
+
+ctx.fillText(
+char,
+i*font,
+drops[i]*font
+);
+
+
+
+if(
+drops[i]*font>canvas.height
+&& Math.random()>0.975
+){
+
+drops[i]=0;
+
+}
+
+
+drops[i]++;
+
+
+}
+
+
+}
+
+
+
+setInterval(rain,40);
+
+
+
+
+
+// typing effect
+
+let words=[
+"your mobile hacked",
+"cyber zone hacker team",
+
+
+];
+
+
+let index=0;
+
+
+function type(){
+
+if(index<words.length){
+
+document.getElementById("text").innerHTML
++= words[index]+"<br>";
+
+index++;
+
+setTimeout(type,1000);
+
+}
+
+}
+
+
+type();
+
+
+
+
+window.onresize=function(){
+
+canvas.width=window.innerWidth;
+
+canvas.height=window.innerHeight;
+
+}
+
+
+</script>
+
+
+</body>
+</html>
